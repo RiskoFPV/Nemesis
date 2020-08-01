@@ -20,6 +20,7 @@ import "./Connected.css";
 import { FCConfigContext } from "../App";
 import PreFlightCheckView from "./PreFlightCheckView/PreFlightCheckView";
 import DrawerView from "./DrawerView";
+import ResponsiveDrawerView from "./ResponsiveDrawerView";
 
 export default class Connected extends Component {
   constructor(props) {
@@ -326,7 +327,7 @@ export default class Connected extends Component {
             fcConfig={mergedProfile}
             isDirty={this.state.isDirty}
           />
-          <DrawerView
+          <ResponsiveDrawerView
             routes={this.routes}
             goToImuf={this.props.goToImuf}
             fcConfig={mergedProfile}

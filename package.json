@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@connectedyard/node-intelhex": "^1.2.4",
-    "@material-ui/core": "^3.9.4",
+    "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^3.0.2",
     "@material-ui/lab": "^3.0.0-alpha.30",
     "ajv": "^6.12.2",
