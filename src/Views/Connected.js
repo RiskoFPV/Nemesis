@@ -34,7 +34,7 @@ export default class Connected extends Component {
       rate_profile: props.fcConfig.currentRateProfile,
       craftName: props.fcConfig.name,
       isDirty: false,
-      drawerOpen: false,
+      mobileOpen: false,
       currentRoute: props.fcConfig.startingRoute
     };
   }
@@ -76,12 +76,13 @@ export default class Connected extends Component {
   };
 
   handleDrawerToggle = () => {
-    if (this.state.drawerOpen) {
+    if (this.state.mobileOpen) {
       FCConnector.pauseTelemetry();
     } else {
       FCConnector.resumeTelemetry();
     }
-    this.setState({ drawerOpen: !this.state.drawerOpen });
+    this.setState({ mobileOpen: !this.state.mobileOpen });
+    console.log("mobileOpen set to", this.state.mobileOpen);
   };
 
   handleSearch = event => {
@@ -103,7 +104,7 @@ export default class Connected extends Component {
     }
     this.setState({
       filterOn: undefined,
-      drawerOpen: false,
+      mobileOpen: false,
       currentRoute: newRoute
     });
   };
@@ -331,9 +332,9 @@ export default class Connected extends Component {
             routes={this.routes}
             goToImuf={this.props.goToImuf}
             fcConfig={mergedProfile}
-            open={this.state.drawerOpen}
+            mobileOpen={this.state.mobileOpen}
             onClose={() => {
-              this.setState({ drawerOpen: false });
+              this.setState({ mobileOpen: false });
             }}
             handleMenuItemClick={this.handleMenuItemClick}
           />

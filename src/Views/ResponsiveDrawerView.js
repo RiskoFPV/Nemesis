@@ -66,34 +66,37 @@ function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+    setMobileOpen(!mobileOpen); // function does not exist anywhere - from example
   };
 
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <Divider />
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+      <List style={{ display: "block" }}>
+        {props.routes.map(route => {
+          return (
+            <MenuItem
+              style={{ padding: 8 }}
+              id={route.key}
+              key={route.key}
+              onClick={() => props.handleMenuItemClick(route.key)}
+            >
+              <Typography variant="subtitle1" style={{ flexGrow: 1 }}>
+                <FormattedMessage id={"route." + route.key} />
+              </Typography>
+              {route.incompeteItems && (
+                <Badge
+                  style={{ top: "12px" }}
+                  badgeContent={route.incompeteItems}
+                  secondary={true}
+                />
+              )}
+            </MenuItem>
+          );
+        })}
       </List>
       <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
     </div>
   );
 
