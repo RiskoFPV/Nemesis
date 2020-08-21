@@ -17,6 +17,7 @@ import VersionInfoView from "./VersionInfoView";
 import { FormattedMessage } from "react-intl";
 import "./Connected.css";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 //extra from example
 import IconButton from "@material-ui/core/IconButton";
@@ -63,41 +64,42 @@ function ResponsiveDrawer(props) {
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen); // function does not exist anywhere - from example
-  };
 
   const drawer = (
-    <div>
-      <div className={classes.toolbar} />
-      <Divider />
-      <List style={{ display: "block" }}>
-        {props.routes.map(route => {
-          return (
-            <MenuItem
-              style={{ padding: 8 }}
-              id={route.key}
-              key={route.key}
-              onClick={() => props.handleMenuItemClick(route.key)}
-            >
-              <Typography variant="subtitle1" style={{ flexGrow: 1 }}>
-                <FormattedMessage id={"route." + route.key} />
-              </Typography>
-              {route.incompeteItems && (
-                <Badge
-                  style={{ top: "12px" }}
-                  badgeContent={route.incompeteItems}
-                  secondary={true}
-                />
-              )}
-            </MenuItem>
-          );
-        })}
-      </List>
-      <Divider />
-    </div>
+    <ClickAwayListener
+      mouseEvent="onMouseDown"
+      touchEvent="onTouchStart"
+      onClickAway={props.handleClickAway}
+    >
+      <div>
+        <div className={classes.toolbar} />
+        <Divider />
+        <List style={{ display: "block" }}>
+          {props.routes.map(route => {
+            return (
+              <MenuItem
+                style={{ padding: 8 }}
+                id={route.key}
+                key={route.key}
+                onClick={() => props.handleMenuItemClick(route.key)}
+              >
+                <Typography variant="subtitle1" style={{ flexGrow: 1 }}>
+                  <FormattedMessage id={"route." + route.key} />
+                </Typography>
+                {route.incompeteItems && (
+                  <Badge
+                    style={{ top: "12px" }}
+                    badgeContent={route.incompeteItems}
+                    secondary={true}
+                  />
+                )}
+              </MenuItem>
+            );
+          })}
+        </List>
+        <Divider />
+      </div>
+    </ClickAwayListener>
   );
 
   const container =
@@ -113,8 +115,7 @@ function ResponsiveDrawer(props) {
             container={container}
             variant="temporary"
             anchor={theme.direction === "rtl" ? "right" : "left"}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
+            open={props.mobileOpen}
             classes={{
               paper: classes.drawerPaper
             }}

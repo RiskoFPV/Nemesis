@@ -19,7 +19,6 @@ import OSDView from "./OSDView/OSDView";
 import "./Connected.css";
 import { FCConfigContext } from "../App";
 import PreFlightCheckView from "./PreFlightCheckView/PreFlightCheckView";
-import DrawerView from "./DrawerView";
 import ResponsiveDrawerView from "./ResponsiveDrawerView";
 
 export default class Connected extends Component {
@@ -83,6 +82,11 @@ export default class Connected extends Component {
     }
     this.setState({ mobileOpen: !this.state.mobileOpen });
     console.log("mobileOpen set to", this.state.mobileOpen);
+  };
+
+  handleClickAway = () => {
+    this.setState({ mobileOpen: false });
+    console.log("by clickAway: mobileOpen set to", this.state.mobileOpen);
   };
 
   handleSearch = event => {
@@ -337,6 +341,7 @@ export default class Connected extends Component {
               this.setState({ mobileOpen: false });
             }}
             handleMenuItemClick={this.handleMenuItemClick}
+            handleClickAway={this.handleClickAway}
           />
           {contents}
           <CliView handleSave={this.handleSave} theme={this.state.theme} />
