@@ -85,8 +85,10 @@ export default class Connected extends Component {
   };
 
   handleClickAway = () => {
-    this.setState({ mobileOpen: false });
-    console.log("by clickAway: mobileOpen set to", this.state.mobileOpen);
+    if (this.state.mobileOpen) {
+      this.setState({ mobileOpen: false });
+      console.log("by clickAway: mobileOpen set to", this.state.mobileOpen);
+    }
   };
 
   handleSearch = event => {
