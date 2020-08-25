@@ -18,12 +18,7 @@ import { FormattedMessage } from "react-intl";
 import "./Connected.css";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-
-//extra from example
-import IconButton from "@material-ui/core/IconButton";
-import MailIcon from "@material-ui/icons/Mail";
-import MenuIcon from "@material-ui/icons/Menu";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
+import CardMedia from "@material-ui/core/CardMedia";
 
 const drawerWidth = 240;
 
@@ -72,7 +67,27 @@ function ResponsiveDrawer(props) {
       onClickAway={props.handleClickAway}
     >
       <div>
-        <div className={classes.toolbar} />
+        <CardMedia
+          style={{ height: 100, backgroundSize: "contain" }}
+          image="assets/cf_logo_white.svg"
+          title="EmuFlight"
+        />
+        <Typography
+          style={{ marginBottom: -20, marginLeft: 16 }}
+          color="textSecondary"
+        >
+          <FormattedMessage
+            id="disconnected.title"
+            values={{ version: props.appVersion }}
+          />
+        </Typography>
+
+        <Divider style={{ marginTop: "30px" }} />
+        <VersionInfoView
+          goToImuf={props.goToImuf}
+          version={props.fcConfig.version}
+          imuf={props.fcConfig.imuf}
+        />
         <Divider />
         <List style={{ display: "block" }}>
           {props.routes.map(route => {

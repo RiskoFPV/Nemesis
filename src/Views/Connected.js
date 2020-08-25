@@ -344,6 +344,7 @@ export default class Connected extends Component {
             }}
             handleMenuItemClick={this.handleMenuItemClick}
             handleClickAway={this.handleClickAway}
+            appVersion={this.props.appVersion}
           />
           {contents}
           <CliView handleSave={this.handleSave} theme={this.state.theme} />
