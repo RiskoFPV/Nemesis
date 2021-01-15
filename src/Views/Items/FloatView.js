@@ -25,30 +25,21 @@ const FloatView = class extends Component {
     this.floatPad = props.floatPad || 3;
     this.state = {
       currentRaw: props.item.current,
-      floatPad: this.floatPad,
       current: props.item.current
+        .toString()
         .replace(".000", "")
         .padStart(this.floatPad, "0")
     };
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.item.current !== this.state.currentRaw) {
-      this.setState({
-        currentRaw: nextProps.item.current,
-        current: nextProps.item.current.toString().padStart(this.floatPad, "0")
-      });
-    }
-  }
-
   updateValue() {
-    let current = parseInt(this.state.current.padEnd(this.floatPad, "0"), 10);
+    let current = this.state.current;
     let isDirty = parseInt(this.props.item.current, 10) !== current;
     if (isDirty) {
       this.props.item.current = current;
       this.setState({
         isDirty: true,
-        current: current.toString()
+        current: current
       });
       FCConnector.setValue(this.props.item.id, current).then(() => {
         this.props.notifyDirty(true, this.state, current);
